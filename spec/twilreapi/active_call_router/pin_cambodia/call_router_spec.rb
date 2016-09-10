@@ -4,16 +4,18 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   include EnvHelpers
 
   let(:source) { "8559999" }
-  let(:destination) { "85518345678" }
+  let(:destination) { "+85518345678" }
+  let(:asserted_destination) { destination.sub(/^\+/, "") }
+  let(:asserted_disable_originate) { nil }
 
   let(:mhealth_source_number) { "8551777" }
   let(:mhealth_caller_id) { "1234" }
   let(:ews_source_number) { "8551778" }
   let(:ews_caller_id) { "4321" }
 
-  let(:smart_number)    { "85510344566"  }
-  let(:cellcard_number) { "85512345677"  }
-  let(:metfone_number)  { "855882345678" }
+  let(:smart_number)    { "+85510344566"  }
+  let(:cellcard_number) { "+85512345677"  }
+  let(:metfone_number)  { "+855882345678" }
 
   subject { described_class.new(source, destination) }
 
@@ -34,10 +36,10 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     let(:routing_instructions) { subject.routing_instructions }
 
     def assert_routing_instructions!
-      expect(routing_instructions["source"]).to eq(source)
-      expect(routing_instructions["destination"]).to eq(destination)
-      expect(routing_instructions["caller_id"]).to eq(asserted_caller_id)
+      expect(routing_instructions["source"]).to eq(asserted_caller_id)
+      expect(routing_instructions["destination"]).to eq(asserted_destination)
       expect(routing_instructions["gateway"]).to eq(asserted_gateway)
+      expect(routing_instructions["disable_originate"]).to eq(asserted_disable_originate)
     end
 
     context "source: mhealth" do
@@ -109,6 +111,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     context "destination unknown" do
       let(:asserted_caller_id) { source }
       let(:asserted_gateway) { nil }
+      let(:asserted_disable_originate) { "1" }
       it { assert_routing_instructions! }
     end
   end

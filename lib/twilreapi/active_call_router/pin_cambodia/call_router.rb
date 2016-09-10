@@ -11,14 +11,18 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   private
 
   def generate_routing_instructions
-    set_routing_instructions
-    {
-      "gateway" => gateway || fallback_gateway,
-      "caller_id" => caller_id || source
+    set_routing_variables
+    gateway_route = gateway || fallback_gateway
+    routing_instructions = {
+      "source" => caller_id || source,
+      "destination" => normalized_destination
     }
+    routing_instructions.merge!("gateway" => gateway_route) if gateway_route
+    routing_instructions.merge!("disable_originate" => "1") if !gateway_route
+    routing_instructions
   end
 
-  def set_routing_instructions
+  def set_routing_variables
     case source
     when mhealth_source_number
       self.gateway = mhealth_gateway
@@ -54,7 +58,11 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   end
 
   def destination_torasup_number
-    @destination_torasup_number ||= Torasup::PhoneNumber.new(destination)
+    @destination_torasup_number ||= Torasup::PhoneNumber.new(normalized_destination)
+  end
+
+  def normalized_destination
+    @normalized_destination ||= Phony.normalize(destination)
   end
 
   def self.configuration(key)
