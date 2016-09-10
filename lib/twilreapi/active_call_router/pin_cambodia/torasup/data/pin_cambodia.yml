@@ -1,0 +1,24 @@
+kh:
+  operators:
+    smart:
+      metadata:
+        gateways:
+          mhealth_default: "pin_kh_04"
+          ews_default: "pin_kh_07"
+          others:
+          - "pin_kh_01"
+          - "pin_kh_02"
+    mobitel:
+      metadata:
+        gateways:
+          mhealth_default: "pin_kh_04"
+          ews_default: "pin_kh_05"
+          others:
+          - "pin_kh_03"
+    metfone:
+      metadata:
+        gateways:
+          mhealth_default: "pin_kh_04"
+          ews_default: "pin_kh_06"
+          others:
+          - "pin_kh_04"
