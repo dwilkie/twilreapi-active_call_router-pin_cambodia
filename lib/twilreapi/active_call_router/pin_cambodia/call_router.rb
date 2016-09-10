@@ -42,7 +42,7 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   end
 
   def other_gateways
-    gateways["other"] || []
+    gateways["others"] || []
   end
 
   def gateways

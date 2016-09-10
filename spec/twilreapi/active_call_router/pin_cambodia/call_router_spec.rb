@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   include EnvHelpers
 
-  let(:source) { "8551777" }
-  let(:destination) { "85512345678" }
+  let(:source) { "8559999" }
+  let(:destination) { "85518345678" }
 
   let(:mhealth_source_number) { "8551777" }
   let(:mhealth_caller_id) { "1234" }
@@ -40,7 +40,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       expect(routing_instructions["gateway"]).to eq(asserted_gateway)
     end
 
-    context "mhealth" do
+    context "source: mhealth" do
       let(:source) { mhealth_source_number }
       let(:asserted_gateway) { "pin_kh_04" }
       let(:asserted_caller_id) { mhealth_caller_id }
@@ -61,7 +61,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       end
     end
 
-    context "ews" do
+    context "source: ews" do
       let(:source) { ews_source_number }
       let(:asserted_caller_id) { ews_caller_id }
 
@@ -82,6 +82,34 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         let(:asserted_gateway) { "pin_kh_06" }
         it { assert_routing_instructions! }
       end
+    end
+
+    context "source: unknown" do
+      let(:asserted_caller_id) { source }
+
+      context "Smart" do
+        let(:destination) { smart_number }
+        let(:asserted_gateway) { "pin_kh_01" }
+        it { assert_routing_instructions! }
+      end
+
+      context "Cellcard" do
+        let(:destination) { cellcard_number }
+        let(:asserted_gateway) { "pin_kh_03" }
+        it { assert_routing_instructions! }
+      end
+
+      context "Metfone" do
+        let(:destination) { metfone_number }
+        let(:asserted_gateway) { "pin_kh_04" }
+        it { assert_routing_instructions! }
+      end
+    end
+
+    context "destination unknown" do
+      let(:asserted_caller_id) { source }
+      let(:asserted_gateway) { nil }
+      it { assert_routing_instructions! }
     end
   end
 end
