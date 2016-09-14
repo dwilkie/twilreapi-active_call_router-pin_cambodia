@@ -3,18 +3,17 @@ kh:
     smart:
       metadata:
         gateways:
-          mhealth_default: "pin_kh_04"
+          mhealth_default: "pin_kh_01"
           ews_default: "pin_kh_07"
           others:
           - "pin_kh_01"
-          - "pin_kh_02"
     mobitel:
       metadata:
         gateways:
           mhealth_default: "pin_kh_04"
           ews_default: "pin_kh_05"
           others:
-          - "pin_kh_03"
+          - "pin_kh_04"
     metfone:
       metadata:
         gateways:
