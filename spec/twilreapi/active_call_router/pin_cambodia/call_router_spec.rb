@@ -44,20 +44,22 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
 
     context "source: mhealth" do
       let(:source) { mhealth_source_number }
-      let(:asserted_gateway) { "pin_kh_04" }
       let(:asserted_caller_id) { mhealth_caller_id }
 
       context "Smart" do
+        let(:asserted_gateway) { "pin_kh_01" }
         let(:destination) { smart_number }
         it { assert_routing_instructions! }
       end
 
       context "Cellcard" do
+        let(:asserted_gateway) { "pin_kh_04" }
         let(:destination) { cellcard_number }
         it { assert_routing_instructions! }
       end
 
       context "Metfone" do
+        let(:asserted_gateway) { "pin_kh_04" }
         let(:destination) { metfone_number }
         it { assert_routing_instructions! }
       end
@@ -97,7 +99,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
 
       context "Cellcard" do
         let(:destination) { cellcard_number }
-        let(:asserted_gateway) { "pin_kh_03" }
+        let(:asserted_gateway) { "pin_kh_04" }
         it { assert_routing_instructions! }
       end
 
