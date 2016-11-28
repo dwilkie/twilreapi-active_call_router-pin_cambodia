@@ -3,21 +3,30 @@ kh:
     smart:
       metadata:
         gateways:
-          mhealth_default: "pin_kh_01"
-          ews_default: "pin_kh_07"
+          mhealth_default:
+            name: "pin_kh_01"
+          ews_default:
+            name: "pin_kh_07"
+            prefix: false
           others:
-          - "pin_kh_01"
+          -  name: "pin_kh_01"
     mobitel:
       metadata:
         gateways:
-          mhealth_default: "pin_kh_04"
-          ews_default: "pin_kh_05"
+          mhealth_default:
+            name: "pin_kh_04"
+          ews_default:
+            name: "pin_kh_05"
+            prefix: false
           others:
-          - "pin_kh_04"
+          - name: "pin_kh_04"
     metfone:
       metadata:
         gateways:
-          mhealth_default: "pin_kh_04"
-          ews_default: "pin_kh_06"
+          mhealth_default:
+            name: "pin_kh_04"
+          ews_default:
+            name: "pin_kh_06"
+            prefix: false
           others:
-          - "pin_kh_04"
+          -  name: "pin_kh_04"

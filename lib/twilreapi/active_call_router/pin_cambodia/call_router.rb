@@ -12,13 +12,19 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   def generate_routing_instructions
     set_routing_variables
-    gateway_route = gateway || fallback_gateway
+    gateway_configuration = gateway || fallback_gateway || {}
+    gateway_name = gateway_configuration["name"]
+    address = normalized_destination
+    address = Phony.format(address, :format => :national, :spaces => "") if gateway_configuration["prefix"] == false
+
     routing_instructions = {
       "source" => caller_id || source,
-      "destination" => normalized_destination
+      "destination" => normalized_destination,
+      "address" => address
     }
-    routing_instructions.merge!("gateway" => gateway_route) if gateway_route
-    routing_instructions.merge!("disable_originate" => "1") if !gateway_route
+
+    routing_instructions.merge!("gateway" => gateway_name) if gateway_name
+    routing_instructions.merge!("disable_originate" => "1") if !gateway_name
     routing_instructions
   end
 

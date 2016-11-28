@@ -7,6 +7,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   let(:destination) { "+85518345678" }
   let(:asserted_destination) { destination.sub(/^\+/, "") }
   let(:asserted_disable_originate) { nil }
+  let(:asserted_address) { asserted_destination }
 
   let(:mhealth_source_number) { "8551777" }
   let(:mhealth_caller_id) { "1234" }
@@ -40,6 +41,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       expect(routing_instructions["destination"]).to eq(asserted_destination)
       expect(routing_instructions["gateway"]).to eq(asserted_gateway)
       expect(routing_instructions["disable_originate"]).to eq(asserted_disable_originate)
+      expect(routing_instructions["address"]).to eq(asserted_address)
     end
 
     context "source: mhealth" do
@@ -72,18 +74,21 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       context "Smart" do
         let(:destination) { smart_number }
         let(:asserted_gateway) { "pin_kh_07" }
+        let(:asserted_address) { "010344566" }
         it { assert_routing_instructions! }
       end
 
       context "Cellcard" do
         let(:destination) { cellcard_number }
         let(:asserted_gateway) { "pin_kh_05" }
+        let(:asserted_address) { "012345677" }
         it { assert_routing_instructions! }
       end
 
       context "Metfone" do
         let(:destination) { metfone_number }
         let(:asserted_gateway) { "pin_kh_06" }
+        let(:asserted_address) { "0882345678" }
         it { assert_routing_instructions! }
       end
     end
