@@ -9,16 +9,23 @@ This gem contains call routing logic for People In Need Cambodia for [Twilreapi.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'twilreapi-active_call_router-pin_cambodia'
+gem 'twilreapi-active_call_router-pin_cambodia', :github => "dwilkie/twilreapi-active_call_router-pin_cambodia"
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+## Configuration
 
-    $ gem install twilreapi-active_call_router-pin_cambodia
+To configure [Twilreapi](https://github.com/dwilkie/twilreapi) to use `Twilreapi::ActiveBiller::PinCambodia::CallRouter`, set the environment variable `ACTIVE_CALL_ROUTER_CLASS_NAME=Twilreapi::ActiveCallRouter::PinCambodia::CallRouter`
+
+The following environment variables can be set to determine the call routing logic:
+
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_SOURCE_NUMBER`: The source number which determines the call is for mHealth
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_CALLER_ID`: The caller id to display for mHealth calls
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_SOURCE_NUMBER`: The source number which determines the call is for EWS
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_CALLER_ID`: The caller id to display for EWS calls
 
 ## Development
 
