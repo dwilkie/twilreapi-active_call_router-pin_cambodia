@@ -10,6 +10,14 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   private
 
+  def source
+    options[:source]
+  end
+
+  def destination
+    options[:destination]
+  end
+
   def generate_routing_instructions
     set_routing_variables
     gateway_configuration = gateway || fallback_gateway || {}

@@ -18,7 +18,9 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   let(:cellcard_number) { "+85512345677"  }
   let(:metfone_number)  { "+855882345678" }
 
-  subject { described_class.new(source, destination) }
+  let(:options) { {:source => source, :destination => destination} }
+
+  subject { described_class.new(options) }
 
   before do
     setup_scenario
