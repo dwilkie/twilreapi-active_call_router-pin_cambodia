@@ -5,7 +5,7 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   attr_accessor :gateway, :caller_id
 
   def routing_instructions
-    @routing_instructions ||= super.merge(generate_routing_instructions)
+    @routing_instructions ||= generate_routing_instructions
   end
 
   private
