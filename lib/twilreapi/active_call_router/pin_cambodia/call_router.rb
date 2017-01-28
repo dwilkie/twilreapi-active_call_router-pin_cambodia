@@ -10,12 +10,16 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   private
 
+  def phone_call
+    options[:phone_call]
+  end
+
   def source
-    options[:source]
+    phone_call.from
   end
 
   def destination
-    options[:destination]
+    phone_call.to
   end
 
   def generate_routing_instructions

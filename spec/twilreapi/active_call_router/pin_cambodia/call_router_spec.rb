@@ -3,6 +3,15 @@ require 'spec_helper'
 describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   include EnvHelpers
 
+  class DummyPhoneCall
+    attr_accessor :from, :to
+
+    def initialize(attributes = {})
+      self.from = attributes[:from]
+      self.to = attributes[:to]
+    end
+  end
+
   let(:source) { "8559999" }
   let(:destination) { "+85518345678" }
   let(:asserted_destination) { destination.sub(/^\+/, "") }
@@ -18,7 +27,9 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   let(:cellcard_number) { "+85512345677"  }
   let(:metfone_number)  { "+855882345678" }
 
-  let(:options) { {:source => source, :destination => destination} }
+  let(:phone_call_attributes) { { :from => source, :to => destination } }
+  let(:phone_call_instance) { DummyPhoneCall.new(phone_call_attributes) }
+  let(:options) { {:phone_call => phone_call_instance} }
 
   subject { described_class.new(options) }
 
