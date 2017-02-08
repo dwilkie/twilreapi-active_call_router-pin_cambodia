@@ -62,7 +62,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       let(:asserted_caller_id) { mhealth_caller_id }
 
       context "Smart" do
-        let(:asserted_gateway) { "pin_kh_01" }
+        let(:asserted_gateway) { "pin_kh_02" }
         let(:destination) { smart_number }
         it { assert_routing_instructions! }
       end

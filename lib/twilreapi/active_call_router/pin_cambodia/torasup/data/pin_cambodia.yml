@@ -4,7 +4,7 @@ kh:
       metadata:
         gateways:
           mhealth_default:
-            name: "pin_kh_01"
+            name: "pin_kh_02"
           ews_default:
             name: "pin_kh_07"
             prefix: false
