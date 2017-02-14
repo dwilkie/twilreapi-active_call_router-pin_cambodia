@@ -5,28 +5,34 @@ kh:
         gateways:
           mhealth_default:
             name: "pin_kh_08"
+            prefix: false
           ews_default:
             name: "pin_kh_07"
             prefix: false
           others:
           -  name: "pin_kh_08"
+             prefix: false
     mobitel:
       metadata:
         gateways:
           mhealth_default:
             name: "pin_kh_08"
+            prefix: false
           ews_default:
             name: "pin_kh_05"
             prefix: false
           others:
           - name: "pin_kh_08"
+            prefix: false
     metfone:
       metadata:
         gateways:
           mhealth_default:
             name: "pin_kh_08"
+            prefix: false
           ews_default:
             name: "pin_kh_06"
             prefix: false
           others:
           -  name: "pin_kh_08"
+             prefix: false

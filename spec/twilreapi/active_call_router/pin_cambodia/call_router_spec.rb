@@ -63,6 +63,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
 
       context "Smart" do
         let(:asserted_gateway) { "pin_kh_08" }
+        let(:asserted_address) { "010344566" }
         let(:destination) { smart_number }
         it { assert_routing_instructions! }
       end
@@ -70,12 +71,14 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       context "Cellcard" do
         let(:asserted_gateway) { "pin_kh_08" }
         let(:destination) { cellcard_number }
+        let(:asserted_address) { "012345677" }
         it { assert_routing_instructions! }
       end
 
       context "Metfone" do
         let(:asserted_gateway) { "pin_kh_08" }
         let(:destination) { metfone_number }
+        let(:asserted_address) { "0882345678" }
         it { assert_routing_instructions! }
       end
     end
@@ -112,18 +115,21 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       context "Smart" do
         let(:destination) { smart_number }
         let(:asserted_gateway) { "pin_kh_08" }
+        let(:asserted_address) { "010344566" }
         it { assert_routing_instructions! }
       end
 
       context "Cellcard" do
         let(:destination) { cellcard_number }
         let(:asserted_gateway) { "pin_kh_08" }
+        let(:asserted_address) { "012345677" }
         it { assert_routing_instructions! }
       end
 
       context "Metfone" do
         let(:destination) { metfone_number }
         let(:asserted_gateway) { "pin_kh_08" }
+        let(:asserted_address) { "0882345678" }
         it { assert_routing_instructions! }
       end
     end
