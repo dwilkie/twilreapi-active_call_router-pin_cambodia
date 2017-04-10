@@ -6,7 +6,6 @@ module EnvHelpers
 
     env.each do |key, value|
       allow(ENV).to receive(:[]).with(key.to_s.upcase).and_return(value)
-      allow(ENV).to receive(:[]).with(key.to_s.upcase).and_return(value)
     end
   end
 end

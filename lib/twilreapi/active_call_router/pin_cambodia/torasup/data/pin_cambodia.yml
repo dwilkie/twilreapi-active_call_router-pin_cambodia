@@ -4,8 +4,7 @@ kh:
       metadata:
         gateways:
           mhealth_default:
-            name: "pin_kh_08"
-            prefix: false
+            host: "27.109.112.80"
           ews_default:
             name: "pin_kh_07"
             prefix: false

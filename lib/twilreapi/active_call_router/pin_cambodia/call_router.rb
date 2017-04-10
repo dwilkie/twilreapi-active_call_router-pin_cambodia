@@ -26,8 +26,15 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
     set_routing_variables
     gateway_configuration = gateway || fallback_gateway || {}
     gateway_name = gateway_configuration["name"]
+    gateway_host = gateway_configuration["host"]
     address = normalized_destination
     address = Phony.format(address, :format => :national, :spaces => "") if gateway_configuration["prefix"] == false
+
+    if gateway_name
+      dial_string_path = "gateway/#{gateway_name}/#{address}"
+    elsif gateway_host
+      dial_string_path = "external/#{address}@#{gateway_host}"
+    end
 
     routing_instructions = {
       "source" => caller_id || source,
@@ -35,8 +42,12 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
       "address" => address
     }
 
-    routing_instructions.merge!("gateway" => gateway_name) if gateway_name
-    routing_instructions.merge!("disable_originate" => "1") if !gateway_name
+    if dial_string_path
+      routing_instructions.merge!("dial_string_path" => dial_string_path)
+    else
+      routing_instructions.merge!("disable_originate" => "1")
+    end
+
     routing_instructions
   end
 

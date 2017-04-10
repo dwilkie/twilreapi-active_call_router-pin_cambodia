@@ -48,13 +48,16 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
 
   describe "#routing_instructions" do
     let(:routing_instructions) { subject.routing_instructions }
+    let(:asserted_dial_string_path) { "gateway/#{asserted_gateway}/#{asserted_address}" }
 
     def assert_routing_instructions!
+      expect(routing_instructions["disable_originate"]).to eq(asserted_disable_originate)
       expect(routing_instructions["source"]).to eq(asserted_caller_id)
       expect(routing_instructions["destination"]).to eq(asserted_destination)
-      expect(routing_instructions["gateway"]).to eq(asserted_gateway)
-      expect(routing_instructions["disable_originate"]).to eq(asserted_disable_originate)
-      expect(routing_instructions["address"]).to eq(asserted_address)
+
+      if !asserted_disable_originate
+        expect(routing_instructions["dial_string_path"]).to eq(asserted_dial_string_path)
+      end
     end
 
     context "source: mhealth" do
@@ -62,9 +65,11 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       let(:asserted_caller_id) { mhealth_caller_id }
 
       context "Smart" do
-        let(:asserted_gateway) { "pin_kh_08" }
-        let(:asserted_address) { "010344566" }
         let(:destination) { smart_number }
+        let(:asserted_host) { "27.109.112.80" }
+        let(:asserted_address) { "#{asserted_destination}@#{asserted_host}" }
+        let(:asserted_dial_string_path) { "external/#{asserted_address}" }
+
         it { assert_routing_instructions! }
       end
 
