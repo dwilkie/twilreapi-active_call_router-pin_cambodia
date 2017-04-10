@@ -38,8 +38,7 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
     routing_instructions = {
       "source" => caller_id || source,
-      "destination" => normalized_destination,
-      "address" => address
+      "destination" => normalized_destination
     }
 
     if dial_string_path

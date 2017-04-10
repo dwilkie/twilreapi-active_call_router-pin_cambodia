@@ -5,6 +5,7 @@ kh:
         gateways:
           mhealth_default:
             host: "27.109.112.80"
+            prefix: false
           ews_default:
             name: "pin_kh_07"
             prefix: false
