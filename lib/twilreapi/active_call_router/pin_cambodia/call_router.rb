@@ -58,6 +58,8 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
     when ews_source_number
       self.gateway = ews_gateway
       self.caller_id = ews_caller_id
+    else
+      self.gateway = default_gateway
     end
   end
 
@@ -71,6 +73,10 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   def ews_gateway
     gateways["ews_default"]
+  end
+
+  def default_gateway
+    gateways["default"]
   end
 
   def other_gateways

@@ -36,3 +36,10 @@ kh:
           others:
           -  name: "pin_kh_08"
              prefix: false
+so:
+  operators:
+    telesom:
+      metadata:
+        gateways:
+          default:
+            host: "196.201.207.191"

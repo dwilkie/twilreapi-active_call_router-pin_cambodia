@@ -4,5 +4,6 @@ source 'https://rubygems.org'
 
 gem 'twilreapi-active_call_router', :github => "dwilkie/twilreapi-active_call_router"
 gem 'torasup',                      :github => "dwilkie/torasup"
+gem 'phony',                        :github => "dwilkie/phony", :branch => "add_telesom_prefix_for_somalia"
 
 gemspec

@@ -26,6 +26,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   let(:smart_number)    { "+85510344566"  }
   let(:cellcard_number) { "+85512345677"  }
   let(:metfone_number)  { "+855882345678" }
+  let(:telesom_number)  { "+252634000613" }
 
   let(:phone_call_attributes) { { :from => source, :to => destination } }
   let(:phone_call_instance) { DummyPhoneCall.new(phone_call_attributes) }
@@ -135,6 +136,14 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         let(:destination) { metfone_number }
         let(:asserted_gateway) { "pin_kh_08" }
         let(:asserted_address) { "0882345678" }
+        it { assert_routing_instructions! }
+      end
+
+      context "Telesom (Somalia)" do
+        let(:destination) { telesom_number }
+        let(:asserted_host) { "196.201.207.191" }
+        let(:asserted_address) { "252634000613@#{asserted_host}" }
+        let(:asserted_dial_string_path) { "external/#{asserted_address}" }
         it { assert_routing_instructions! }
       end
     end
