@@ -26,7 +26,6 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   let(:smart_number)    { "+85510344566"  }
   let(:cellcard_number) { "+85512345677"  }
   let(:metfone_number)  { "+855882345678" }
-  let(:telesom_number)  { "+252634000613" }
 
   let(:phone_call_attributes) { { :from => source, :to => destination } }
   let(:phone_call_instance) { DummyPhoneCall.new(phone_call_attributes) }
@@ -139,12 +138,40 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         it { assert_routing_instructions! }
       end
 
-      context "Telesom (Somalia)" do
-        let(:destination) { telesom_number }
+      context "Somalia" do
         let(:asserted_host) { "196.201.207.191" }
-        let(:asserted_address) { "252634000613@#{asserted_host}" }
+        let(:asserted_address) { "#{asserted_destination}@#{asserted_host}" }
         let(:asserted_dial_string_path) { "external/#{asserted_address}" }
-        it { assert_routing_instructions! }
+
+        context "Telesom" do
+          let(:telesom_number)  { "+252634000613" }
+          let(:destination) { telesom_number }
+          it { assert_routing_instructions! }
+        end
+
+        context "Golis" do
+          let(:golis_number)  { "+252904000613" }
+          let(:destination) { golis_number }
+          it { assert_routing_instructions! }
+        end
+
+        context "NationLink" do
+          let(:nationlink_number)  { "+252694000613" }
+          let(:destination) { nationlink_number }
+          it { assert_routing_instructions! }
+        end
+
+        context "Somtel" do
+          let(:somtel_number)  { "+252654000613" }
+          let(:destination) { somtel_number }
+          it { assert_routing_instructions! }
+        end
+
+        context "Hormuud" do
+          let(:hormuud_number)  { "+252614000613" }
+          let(:destination) { hormuud_number }
+          it { assert_routing_instructions! }
+        end
       end
     end
 

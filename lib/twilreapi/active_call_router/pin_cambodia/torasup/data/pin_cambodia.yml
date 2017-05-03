@@ -43,3 +43,23 @@ so:
         gateways:
           default:
             host: "196.201.207.191"
+    golis:
+      metadata:
+        gateways:
+          default:
+            host: "196.201.207.191"
+    nationlink:
+      metadata:
+        gateways:
+          default:
+            host: "196.201.207.191"
+    somtel:
+      metadata:
+        gateways:
+          default:
+            host: "196.201.207.191"
+    hormuud:
+      metadata:
+        gateways:
+          default:
+            host: "196.201.207.191"
