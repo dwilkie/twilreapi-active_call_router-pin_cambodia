@@ -7,7 +7,7 @@ kh:
             host: "27.109.112.80"
             prefix: false
           ews_default:
-            name: "pin_kh_07"
+            host: "27.109.112.80"
             prefix: false
           others:
           -  name: "pin_kh_08"

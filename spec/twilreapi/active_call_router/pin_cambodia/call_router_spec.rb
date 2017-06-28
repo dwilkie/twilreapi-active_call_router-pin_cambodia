@@ -94,8 +94,10 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
 
       context "Smart" do
         let(:destination) { smart_number }
-        let(:asserted_gateway) { "pin_kh_07" }
-        let(:asserted_address) { "010344566" }
+        let(:asserted_host) { "27.109.112.80" }
+        let(:asserted_address) { "010344566@#{asserted_host}" }
+        let(:asserted_dial_string_path) { "external/#{asserted_address}" }
+
         it { assert_routing_instructions! }
       end
 
