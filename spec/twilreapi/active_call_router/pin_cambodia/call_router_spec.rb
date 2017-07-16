@@ -139,42 +139,6 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         let(:asserted_address) { "0882345678" }
         it { assert_routing_instructions! }
       end
-
-      context "Somalia" do
-        let(:asserted_host) { "196.201.207.191" }
-        let(:asserted_address) { "#{asserted_destination}@#{asserted_host}" }
-        let(:asserted_dial_string_path) { "external/#{asserted_address}" }
-
-        context "Telesom" do
-          let(:telesom_number)  { "+252634000613" }
-          let(:destination) { telesom_number }
-          it { assert_routing_instructions! }
-        end
-
-        context "Golis" do
-          let(:golis_number)  { "+252904000613" }
-          let(:destination) { golis_number }
-          it { assert_routing_instructions! }
-        end
-
-        context "NationLink" do
-          let(:nationlink_number)  { "+252694000613" }
-          let(:destination) { nationlink_number }
-          it { assert_routing_instructions! }
-        end
-
-        context "Somtel" do
-          let(:somtel_number)  { "+252654000613" }
-          let(:destination) { somtel_number }
-          it { assert_routing_instructions! }
-        end
-
-        context "Hormuud" do
-          let(:hormuud_number)  { "+252614000613" }
-          let(:destination) { hormuud_number }
-          it { assert_routing_instructions! }
-        end
-      end
     end
 
     context "destination unknown" do
