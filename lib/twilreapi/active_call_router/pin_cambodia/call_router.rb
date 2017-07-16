@@ -28,7 +28,11 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
     gateway_name = gateway_configuration["name"]
     gateway_host = gateway_configuration["host"]
     address = normalized_destination
-    address = Phony.format(address, :format => :national, :spaces => "") if gateway_configuration["prefix"] == false
+
+    address = Phony.format(
+      address,
+      :format => :national, :spaces => ""
+    ) if gateway_configuration["prefix"] == false || default_to_national_dial_string_format?
 
     if gateway_name
       dial_string_path = "gateway/#{gateway_name}/#{address}"
@@ -109,5 +113,13 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   def ews_caller_id
     self.class.configuration("ews_caller_id")
+  end
+
+  def default_dial_string_format
+    self.class.configuration("default_dial_string_format")
+  end
+
+  def default_to_national_dial_string_format?
+    default_dial_string_format == "NATIONAL"
   end
 end

@@ -23,7 +23,5 @@ kh:
         gateways:
           mhealth_default:
             host: "175.100.32.29"
-            prefix: false
           ews_default:
             host: "175.100.32.29"
-            prefix: false

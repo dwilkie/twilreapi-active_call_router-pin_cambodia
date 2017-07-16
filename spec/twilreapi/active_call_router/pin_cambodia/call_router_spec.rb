@@ -37,13 +37,17 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     setup_scenario
   end
 
-  def setup_scenario
-    stub_env(
+  def env
+    {
       :"twilreapi_active_call_router_pin_cambodia_mhealth_source_number" => mhealth_source_number,
       :"twilreapi_active_call_router_pin_cambodia_ews_source_number" => ews_source_number,
       :"twilreapi_active_call_router_pin_cambodia_mhealth_caller_id" => mhealth_caller_id,
       :"twilreapi_active_call_router_pin_cambodia_ews_caller_id" => ews_caller_id
-    )
+    }
+  end
+
+  def setup_scenario
+    stub_env(env)
   end
 
   describe "#routing_instructions" do
@@ -77,16 +81,30 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         let(:asserted_gateway) { "pin_kh_08" }
         let(:destination) { cellcard_number }
         let(:asserted_address) { "012345677" }
+
         it { assert_routing_instructions! }
       end
 
       context "Metfone" do
         let(:destination) { metfone_number }
         let(:asserted_host) { "175.100.32.29" }
-        let(:asserted_address) { "0882345678@#{asserted_host}" }
+        let(:asserted_number) { "855882345678" }
+        let(:asserted_address) { "#{asserted_number}@#{asserted_host}" }
         let(:asserted_dial_string_path) { "external/#{asserted_address}" }
 
         it { assert_routing_instructions! }
+
+        context "TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_DEFAULT_DIAL_STRING_FORMAT=NATIONAL" do
+          let(:asserted_number) { "0882345678" }
+
+          def env
+            super.merge(
+              :"twilreapi_active_call_router_pin_cambodia_default_dial_string_format" => "NATIONAL"
+            )
+          end
+
+          it { assert_routing_instructions! }
+        end
       end
     end
 
@@ -99,6 +117,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         let(:asserted_host) { "27.109.112.80" }
         let(:asserted_address) { "010344566@#{asserted_host}" }
         let(:asserted_dial_string_path) { "external/#{asserted_address}" }
+
         it { assert_routing_instructions! }
       end
 
@@ -106,14 +125,17 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         let(:destination) { cellcard_number }
         let(:asserted_gateway) { "pin_kh_05" }
         let(:asserted_address) { "012345677" }
+
         it { assert_routing_instructions! }
       end
 
       context "Metfone" do
         let(:destination) { metfone_number }
         let(:asserted_host) { "175.100.32.29" }
-        let(:asserted_address) { "0882345678@#{asserted_host}" }
+        let(:asserted_number) { "855882345678" }
+        let(:asserted_address) { "#{asserted_number}@#{asserted_host}" }
         let(:asserted_dial_string_path) { "external/#{asserted_address}" }
+
         it { assert_routing_instructions! }
       end
     end
@@ -123,6 +145,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       let(:asserted_caller_id) { source }
       let(:asserted_gateway) { nil }
       let(:asserted_disable_originate) { "1" }
+
       it { assert_routing_instructions! }
     end
 
@@ -130,6 +153,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       let(:asserted_caller_id) { source }
       let(:asserted_gateway) { nil }
       let(:asserted_disable_originate) { "1" }
+
       it { assert_routing_instructions! }
     end
   end

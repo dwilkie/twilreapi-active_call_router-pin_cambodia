@@ -22,10 +22,16 @@ To configure [Twilreapi](https://github.com/dwilkie/twilreapi) to use `Twilreapi
 
 The following environment variables can be set to determine the call routing logic:
 
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_SOURCE_NUMBER`: The source number which determines the call is for mHealth
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_CALLER_ID`: The caller id to display for mHealth calls
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_SOURCE_NUMBER`: The source number which determines the call is for EWS
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_CALLER_ID`: The caller id to display for EWS calls
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_DEFAULT_DIAL_STRING_FORMAT`
+  * Defaults to international format. Set to `NATIONAL` to default to national dial string format
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_SOURCE_NUMBER`
+  * The source number which determines the call is for mHealth
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_CALLER_ID`
+  * The caller id to display for mHealth calls
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_SOURCE_NUMBER`
+  * The source number which determines the call is for EWS
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_CALLER_ID`
+  * The caller id to display for EWS calls
 
 ## Development
 
