@@ -81,9 +81,11 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       end
 
       context "Metfone" do
-        let(:asserted_gateway) { "pin_kh_08" }
         let(:destination) { metfone_number }
-        let(:asserted_address) { "0882345678" }
+        let(:asserted_host) { "175.100.32.29" }
+        let(:asserted_address) { "0882345678@#{asserted_host}" }
+        let(:asserted_dial_string_path) { "external/#{asserted_address}" }
+
         it { assert_routing_instructions! }
       end
     end
@@ -97,7 +99,6 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         let(:asserted_host) { "27.109.112.80" }
         let(:asserted_address) { "010344566@#{asserted_host}" }
         let(:asserted_dial_string_path) { "external/#{asserted_address}" }
-
         it { assert_routing_instructions! }
       end
 
@@ -110,35 +111,19 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
 
       context "Metfone" do
         let(:destination) { metfone_number }
-        let(:asserted_gateway) { "pin_kh_06" }
-        let(:asserted_address) { "0882345678" }
+        let(:asserted_host) { "175.100.32.29" }
+        let(:asserted_address) { "0882345678@#{asserted_host}" }
+        let(:asserted_dial_string_path) { "external/#{asserted_address}" }
         it { assert_routing_instructions! }
       end
     end
 
-    context "source: unknown" do
+    context "source unknown" do
+      let(:destination) { smart_number }
       let(:asserted_caller_id) { source }
-
-      context "Smart" do
-        let(:destination) { smart_number }
-        let(:asserted_gateway) { "pin_kh_08" }
-        let(:asserted_address) { "010344566" }
-        it { assert_routing_instructions! }
-      end
-
-      context "Cellcard" do
-        let(:destination) { cellcard_number }
-        let(:asserted_gateway) { "pin_kh_08" }
-        let(:asserted_address) { "012345677" }
-        it { assert_routing_instructions! }
-      end
-
-      context "Metfone" do
-        let(:destination) { metfone_number }
-        let(:asserted_gateway) { "pin_kh_08" }
-        let(:asserted_address) { "0882345678" }
-        it { assert_routing_instructions! }
-      end
+      let(:asserted_gateway) { nil }
+      let(:asserted_disable_originate) { "1" }
+      it { assert_routing_instructions! }
     end
 
     context "destination unknown" do

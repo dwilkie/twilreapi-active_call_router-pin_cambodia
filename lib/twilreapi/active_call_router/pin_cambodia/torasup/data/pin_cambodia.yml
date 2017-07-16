@@ -9,9 +9,6 @@ kh:
           ews_default:
             host: "27.109.112.80"
             prefix: false
-          others:
-          -  name: "pin_kh_08"
-             prefix: false
     mobitel:
       metadata:
         gateways:
@@ -21,18 +18,12 @@ kh:
           ews_default:
             name: "pin_kh_05"
             prefix: false
-          others:
-          - name: "pin_kh_08"
-            prefix: false
     metfone:
       metadata:
         gateways:
           mhealth_default:
-            name: "pin_kh_08"
+            host: "175.100.32.29"
             prefix: false
           ews_default:
-            name: "pin_kh_06"
+            host: "175.100.32.29"
             prefix: false
-          others:
-          -  name: "pin_kh_08"
-             prefix: false

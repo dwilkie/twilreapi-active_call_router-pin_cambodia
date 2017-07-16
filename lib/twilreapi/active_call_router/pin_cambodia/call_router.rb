@@ -24,7 +24,7 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   def generate_routing_instructions
     set_routing_variables
-    gateway_configuration = gateway || fallback_gateway || {}
+    gateway_configuration = gateway || {}
     gateway_name = gateway_configuration["name"]
     gateway_host = gateway_configuration["host"]
     address = normalized_destination
@@ -63,10 +63,6 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
     end
   end
 
-  def fallback_gateway
-    gateways["fallback"] || other_gateways.first
-  end
-
   def mhealth_gateway
     gateways["mhealth_default"]
   end
@@ -77,10 +73,6 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   def default_gateway
     gateways["default"]
-  end
-
-  def other_gateways
-    gateways["others"] || []
   end
 
   def gateways
