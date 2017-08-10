@@ -3,25 +3,18 @@ kh:
     smart:
       metadata:
         gateways:
-          mhealth_default:
-            host: "27.109.112.80"
-            prefix: false
-          ews_default:
+          default:
             host: "27.109.112.80"
             prefix: false
     mobitel:
       metadata:
         gateways:
-          mhealth_default:
-            name: "pin_kh_08"
-            prefix: false
-          ews_default:
-            name: "pin_kh_05"
+          default:
+            host: "103.193.204.7"
             prefix: false
     metfone:
       metadata:
         gateways:
-          mhealth_default:
+          default:
             host: "175.100.32.29"
-          ews_default:
-            host: "175.100.32.29"
+            prefix: false

@@ -31,7 +31,8 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
     address = Phony.format(
       address,
-      :format => :national, :spaces => ""
+      :format => :national,
+      :spaces => ""
     ) if gateway_configuration["prefix"] == false || default_to_national_dial_string_format?
 
     if gateway_name
@@ -55,24 +56,13 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   end
 
   def set_routing_variables
+    self.gateway = default_gateway
     case source
     when mhealth_source_number
-      self.gateway = mhealth_gateway
       self.caller_id = mhealth_caller_id
     when ews_source_number
-      self.gateway = ews_gateway
       self.caller_id = ews_caller_id
-    else
-      self.gateway = default_gateway
     end
-  end
-
-  def mhealth_gateway
-    gateways["mhealth_default"]
-  end
-
-  def ews_gateway
-    gateways["ews_default"]
   end
 
   def default_gateway
