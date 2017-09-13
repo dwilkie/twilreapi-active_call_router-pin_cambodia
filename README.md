@@ -1,15 +1,15 @@
 # Twilreapi::ActiveCallRouter::PinCambodia
 
-[![Build Status](https://travis-ci.org/dwilkie/twilreapi-active_call_router-pin_cambodia.svg?branch=master)](https://travis-ci.org/dwilkie/twilreapi-active_call_router-pin_cambodia)
+[![Build Status](https://travis-ci.org/somleng/twilreapi-active_call_router-pin_cambodia.svg?branch=master)](https://travis-ci.org/somleng/twilreapi-active_call_router-pin_cambodia)
 
-This gem contains call routing logic for People In Need Cambodia for [Twilreapi.](https://github.com/dwilkie/twilreapi)
+This gem contains call routing logic for People In Need Cambodia for [Twilreapi.](https://github.com/somleng/twilreapi)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'twilreapi-active_call_router-pin_cambodia', :github => "dwilkie/twilreapi-active_call_router-pin_cambodia"
+gem 'twilreapi-active_call_router-pin_cambodia', :github => "somleng/twilreapi-active_call_router-pin_cambodia"
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 ## Configuration
 
-To configure [Twilreapi](https://github.com/dwilkie/twilreapi) to use `Twilreapi::ActiveBiller::PinCambodia::CallRouter`, set the environment variable `ACTIVE_CALL_ROUTER_CLASS_NAME=Twilreapi::ActiveCallRouter::PinCambodia::CallRouter`
+To configure [Twilreapi](https://github.com/somleng/twilreapi) to use `Twilreapi::ActiveBiller::PinCambodia::CallRouter`, set the environment variable `ACTIVE_CALL_ROUTER_CLASS_NAME=Twilreapi::ActiveCallRouter::PinCambodia::CallRouter`
 
 The following environment variables can be set to determine the call routing logic:
 
@@ -41,7 +41,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/dwilkie/twilreapi-active_call_router-pin_cambodia.
+Bug reports and pull requests are welcome on GitHub at https://github.com/somleng/twilreapi-active_call_router-pin_cambodia.
 
 ## License
 
