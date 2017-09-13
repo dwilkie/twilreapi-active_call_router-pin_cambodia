@@ -56,17 +56,22 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   end
 
   def set_routing_variables
-    self.gateway = default_gateway
     case source
     when mhealth_source_number
       self.caller_id = mhealth_caller_id
+      self.gateway = mhealth_gateway
     when ews_source_number
       self.caller_id = ews_caller_id
     end
+    self.gateway ||= default_gateway
   end
 
   def default_gateway
     gateways["default"]
+  end
+
+  def mhealth_gateway
+    gateways["mhealth"]
   end
 
   def gateways

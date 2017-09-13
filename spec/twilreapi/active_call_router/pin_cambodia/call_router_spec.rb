@@ -25,7 +25,13 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     },
     :metfone => {
       :sample_number => "+855882345678",
-      :asserted_address => "0882345678@175.100.32.29"
+      :asserted_address => "0882345678@175.100.32.29",
+      :asserted_address_exceptions => {
+        :services => {
+          :mhealth =>
+            "0882345678@103.193.204.7"
+        }
+      }
     }
   }
 
@@ -88,12 +94,14 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     ASSERTED_OPERATORS.each do |asserted_operator_name, operator_params|
       context "destination: #{asserted_operator_name}" do
         let(:destination) { operator_params[:sample_number] }
-        let(:asserted_address) { operator_params[:asserted_address] }
 
         ASSERTED_SERVICES.each do |asserted_service_name, service_params|
           context "source: #{asserted_service_name}" do
             let(:source) { service_params[:source_number] }
             let(:asserted_caller_id) { service_params[:caller_id] }
+            let(:asserted_address) {
+              ((operator_params[:asserted_address_exceptions] || {})[:services] || {})[asserted_service_name] || operator_params[:asserted_address]
+            }
 
             it { assert_routing_instructions! }
           end
