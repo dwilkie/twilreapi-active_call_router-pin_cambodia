@@ -36,21 +36,36 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   }
 
   class DummyPhoneCall
-    attr_accessor :from, :to
+    attr_accessor :from, :to, :variables
 
     def initialize(attributes = {})
       self.from = attributes[:from]
       self.to = attributes[:to]
+      self.variables = attributes[:variables]
+    end
+
+    def variables
+      @variables ||= {}
     end
   end
 
   let(:source) { "8559999" }
   let(:destination) { "+85518345678" }
+  let(:sip_from_host) { "192.168.1.1" }
   let(:asserted_destination) { destination.sub(/^\+/, "") }
   let(:asserted_disable_originate) { nil }
   let(:asserted_address) { asserted_destination }
 
-  let(:phone_call_attributes) { { :from => source, :to => destination } }
+  let(:phone_call_attributes) {
+    {
+      :from => source,
+      :to => destination,
+      :variables => {
+        "sip_from_host" => sip_from_host
+      }
+    }
+  }
+
   let(:phone_call_instance) { DummyPhoneCall.new(phone_call_attributes) }
   let(:options) { {:phone_call => phone_call_instance} }
 
@@ -60,30 +75,88 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     setup_scenario
   end
 
-  def generate_env_from_services
-    service_env = {}
-    ASSERTED_SERVICES.each do |asserted_service_name, params|
-      service_env[:"twilreapi_active_call_router_pin_cambodia_#{asserted_service_name}_source_number"] = params[:source_number]
-      service_env[:"twilreapi_active_call_router_pin_cambodia_#{asserted_service_name}_caller_id"] = params[:caller_id]
-    end
-    service_env
-  end
-
-  def env
-    generate_env_from_services
-  end
-
   def setup_scenario
     stub_env(env)
   end
 
   describe "#normalized_from" do
-    it { expect(subject.normalize_from).to eq(nil) }
+    let(:trunk_prefix) { "0" }
+    let(:trunk_prefix_replacement) { "855" }
+    let(:trunk_prefix_hosts) { "#{sip_from_host};192.168.0.1" }
+    let(:result) { subject.normalize_from }
+
+    def env
+      {
+        :twilreapi_active_call_router_pin_cambodia_trunk_prefix_hosts => trunk_prefix_hosts,
+        :twilreapi_active_call_router_pin_cambodia_trunk_prefix => trunk_prefix,
+        :twilreapi_active_call_router_pin_cambodia_trunk_prefix_replacement => trunk_prefix_replacement
+      }
+    end
+
+    def assert_normalized_from!
+      expect(result).to eq(asserted_normalized_from)
+    end
+
+    context "source: '+0972345678'" do
+      let(:source) { "+0972345678" }
+      let(:asserted_normalized_from) { "+855972345678" }
+
+      it { assert_normalized_from! }
+
+      context "trunk_prefix_host does not match sip_from_host" do
+        let(:trunk_prefix_hosts) { nil }
+        let(:asserted_normalized_from) { nil }
+        it { assert_normalized_from! }
+      end
+
+      context "trunk prefix replacement: '856'" do
+        let(:trunk_prefix_replacement) { "856" }
+        let(:asserted_normalized_from) { "+856972345678" }
+        it { assert_normalized_from! }
+      end
+
+      context "trunk prefix: '1'" do
+        let(:trunk_prefix) { "1" }
+        let(:asserted_normalized_from) { source }
+        it { assert_normalized_from! }
+      end
+    end
+
+    context "source: '+855972345678'" do
+      let(:source) { "+855972345678" }
+      let(:asserted_normalized_from) { source }
+      it { assert_normalized_from! }
+    end
+
+    context "source: '855972345678'" do
+      let(:source) { "855972345678" }
+      let(:asserted_normalized_from) { source }
+      it { assert_normalized_from! }
+    end
+
+    context "source: '10972345678'" do
+      let(:source) { "10972345678" }
+      let(:asserted_normalized_from) { source }
+      it { assert_normalized_from! }
+    end
   end
 
   describe "#routing_instructions" do
     let(:routing_instructions) { subject.routing_instructions }
     let(:asserted_dial_string_path) { "external/#{asserted_address}" }
+
+    def generate_env_from_services
+      service_env = {}
+      ASSERTED_SERVICES.each do |asserted_service_name, params|
+        service_env[:"twilreapi_active_call_router_pin_cambodia_#{asserted_service_name}_source_number"] = params[:source_number]
+        service_env[:"twilreapi_active_call_router_pin_cambodia_#{asserted_service_name}_caller_id"] = params[:caller_id]
+      end
+      service_env
+    end
+
+    def env
+      generate_env_from_services
+    end
 
     def assert_routing_instructions!
       expect(routing_instructions["disable_originate"]).to eq(asserted_disable_originate)

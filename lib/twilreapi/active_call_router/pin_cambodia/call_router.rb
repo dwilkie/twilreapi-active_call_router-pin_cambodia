@@ -2,7 +2,14 @@ require "twilreapi/active_call_router/base"
 require_relative "torasup"
 
 class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCallRouter::Base
+  DEFAULT_TRUNK_PREFIX = "0"
   attr_accessor :gateway, :caller_id
+
+  def normalize_from
+    if from_host && trunk_prefix_hosts.include?(from_host)
+      source.sub(/\A((\+)?#{trunk_prefix})/, "\\2#{trunk_prefix_replacement}")
+    end
+  end
 
   def routing_instructions
     @routing_instructions ||= generate_routing_instructions
@@ -12,6 +19,10 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   def phone_call
     options[:phone_call]
+  end
+
+  def from_host
+    phone_call.variables["sip_from_host"]
   end
 
   def source
@@ -116,5 +127,17 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   def default_to_national_dial_string_format?
     default_dial_string_format == "NATIONAL"
+  end
+
+  def trunk_prefix_hosts
+    self.class.configuration("trunk_prefix_hosts").to_s.split(";")
+  end
+
+  def trunk_prefix
+    self.class.configuration("trunk_prefix") || DEFAULT_TRUNK_PREFIX
+  end
+
+  def trunk_prefix_replacement
+    self.class.configuration("trunk_prefix_replacement")
   end
 end
