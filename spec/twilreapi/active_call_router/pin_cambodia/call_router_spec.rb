@@ -51,7 +51,6 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
 
   let(:source) { "8559999" }
   let(:destination) { "+85518345678" }
-  let(:sip_from_host) { "192.168.1.1" }
   let(:asserted_destination) { destination.sub(/^\+/, "") }
   let(:asserted_disable_originate) { nil }
   let(:asserted_address) { asserted_destination }
@@ -59,10 +58,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   let(:phone_call_attributes) {
     {
       :from => source,
-      :to => destination,
-      :variables => {
-        "sip_from_host" => sip_from_host
-      }
+      :to => destination
     }
   }
 
@@ -82,12 +78,10 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
   describe "#normalized_from" do
     let(:trunk_prefix) { "0" }
     let(:trunk_prefix_replacement) { "855" }
-    let(:trunk_prefix_hosts) { "#{sip_from_host};192.168.0.1" }
     let(:result) { subject.normalize_from }
 
     def env
       {
-        :twilreapi_active_call_router_pin_cambodia_trunk_prefix_hosts => trunk_prefix_hosts,
         :twilreapi_active_call_router_pin_cambodia_trunk_prefix => trunk_prefix,
         :twilreapi_active_call_router_pin_cambodia_trunk_prefix_replacement => trunk_prefix_replacement
       }
@@ -99,23 +93,26 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
 
     context "source: '+0972345678'" do
       let(:source) { "+0972345678" }
-      let(:asserted_normalized_from) { "+855972345678" }
 
-      it { assert_normalized_from! }
-
-      context "trunk_prefix_host does not match sip_from_host" do
-        let(:trunk_prefix_hosts) { nil }
-        let(:asserted_normalized_from) { nil }
+      context "trunk_prefix_replacement: '855'" do
+        let(:trunk_prefix_replacement) { "855" }
+        let(:asserted_normalized_from) { "+855972345678" }
         it { assert_normalized_from! }
       end
 
-      context "trunk prefix replacement: '856'" do
+      context "trunk_prefix_replacement: '856'" do
         let(:trunk_prefix_replacement) { "856" }
         let(:asserted_normalized_from) { "+856972345678" }
         it { assert_normalized_from! }
       end
 
-      context "trunk prefix: '1'" do
+      context "trunk_prefix_replacement: nil" do
+        let(:trunk_prefix_replacement) { nil }
+        let(:asserted_normalized_from) { source }
+        it { assert_normalized_from! }
+      end
+
+      context "trunk_prefix: '1'" do
         let(:trunk_prefix) { "1" }
         let(:asserted_normalized_from) { source }
         it { assert_normalized_from! }

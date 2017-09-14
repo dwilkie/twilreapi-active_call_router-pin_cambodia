@@ -32,12 +32,10 @@ The following environment variables can be set to determine the call routing log
   * The source number which determines the call is for EWS
 * `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_CALLER_ID`
   * The caller id to display for EWS calls
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX_HOSTS`
-  * A semicolon separated list of sip_from_hosts which have a trunk prefix. E.g. Setting `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX_HOSTS` to `192.168.0.1;10.1.1.1` would cause `#normalize_from` to return `85597245433` given a `from` of `097245433` if the `sip_from_host` was from either `192.168.0.1` or `10.1.1.1` assuming `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX_REPLACEMENT` is set to `855` and `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX` is set to `0`. See below.
+* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX_REPLACEMENT`
+  * The replacement of the trunk prefix. Unset to nil to disable trunk prefix replacement
 * `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX`
   * The trunk prefix to replace. Defaults to '0'
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX_REPLACEMENT`
-  * The replacement of the trunk prefix
 
 ## Development
 

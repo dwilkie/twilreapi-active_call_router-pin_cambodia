@@ -6,8 +6,10 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   attr_accessor :gateway, :caller_id
 
   def normalize_from
-    if from_host && trunk_prefix_hosts.include?(from_host)
+    if source && trunk_prefix_replacement
       source.sub(/\A((\+)?#{trunk_prefix})/, "\\2#{trunk_prefix_replacement}")
+    else
+      source
     end
   end
 
@@ -127,10 +129,6 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
 
   def default_to_national_dial_string_format?
     default_dial_string_format == "NATIONAL"
-  end
-
-  def trunk_prefix_hosts
-    self.class.configuration("trunk_prefix_hosts").to_s.split(";")
   end
 
   def trunk_prefix
