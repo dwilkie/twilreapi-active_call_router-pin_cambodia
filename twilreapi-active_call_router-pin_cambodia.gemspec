@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "twilreapi-active_call_router"
+  spec.add_dependency "twilreapi-active_call_router", "~> 0.2.0"
   spec.add_dependency "torasup", "~> 0.1.2"
 
   spec.add_development_dependency "bundler", "~> 1.11"

@@ -77,6 +77,10 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     stub_env(env)
   end
 
+  describe "#normalized_from" do
+    it { expect(subject.normalize_from).to eq(nil) }
+  end
+
   describe "#routing_instructions" do
     let(:routing_instructions) { subject.routing_instructions }
     let(:asserted_dial_string_path) { "external/#{asserted_address}" }
