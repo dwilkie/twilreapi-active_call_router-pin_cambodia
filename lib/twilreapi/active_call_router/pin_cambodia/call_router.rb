@@ -48,6 +48,10 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
       :spaces => ""
     ) if gateway_configuration["prefix"] == false || default_to_national_dial_string_format?
 
+    if gateway_configuration["trunk"] == false
+      address = address.sub(/^0/, "")
+    end
+
     if gateway_name
       dial_string_path = "gateway/#{gateway_name}/#{address}"
     elsif gateway_host

@@ -29,7 +29,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       :asserted_address_exceptions => {
         :services => {
           :mhealth =>
-            "0882345678@103.193.204.7"
+            "882345678@103.193.204.7"
         }
       }
     }
