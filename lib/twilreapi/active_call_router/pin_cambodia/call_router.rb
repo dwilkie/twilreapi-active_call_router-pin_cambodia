@@ -40,6 +40,7 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
     gateway_configuration = gateway || {}
     gateway_name = gateway_configuration["name"]
     gateway_host = gateway_configuration["host"]
+    gateway_caller_id = gateway_configuration["caller_id"]
     address = normalized_destination
 
     address = Phony.format(
@@ -59,7 +60,7 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
     end
 
     routing_instructions = {
-      "source" => caller_id || source,
+      "source" => gateway_caller_id || caller_id || source,
       "destination" => normalized_destination
     }
 
