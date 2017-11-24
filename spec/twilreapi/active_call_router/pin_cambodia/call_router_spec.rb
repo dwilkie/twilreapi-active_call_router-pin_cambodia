@@ -26,10 +26,14 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     :metfone => {
       :sample_number => "+855882345678",
       :asserted_address => "0882345678@175.100.32.29",
+      :asserted_caller_id_exceptions => {
+        :services => {
+          :mhealth => "095975802"
+        }
+      },
       :asserted_address_exceptions => {
         :services => {
-          :mhealth =>
-            "882345678@103.193.204.7"
+          :mhealth => "882345678@103.193.204.7"
         }
       }
     }
@@ -165,6 +169,10 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       end
     end
 
+    def asserted_exceptions(operator_params, exception_type, service_name)
+      ((operator_params[exception_type] || {})[:services] || {})[service_name]
+    end
+
     ASSERTED_OPERATORS.each do |asserted_operator_name, operator_params|
       context "destination: #{asserted_operator_name}" do
         let(:destination) { operator_params[:sample_number] }
@@ -172,9 +180,21 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
         ASSERTED_SERVICES.each do |asserted_service_name, service_params|
           context "source: #{asserted_service_name}" do
             let(:source) { service_params[:source_number] }
-            let(:asserted_caller_id) { service_params[:caller_id] }
+
+            let(:asserted_caller_id) {
+              asserted_exceptions(
+                operator_params,
+                :asserted_caller_id_exceptions,
+                asserted_service_name
+              ) || service_params[:caller_id]
+            }
+
             let(:asserted_address) {
-              ((operator_params[:asserted_address_exceptions] || {})[:services] || {})[asserted_service_name] || operator_params[:asserted_address]
+              asserted_exceptions(
+                operator_params,
+                :asserted_address_exceptions,
+                asserted_service_name
+              ) || operator_params[:asserted_address]
             }
 
             it { assert_routing_instructions! }
