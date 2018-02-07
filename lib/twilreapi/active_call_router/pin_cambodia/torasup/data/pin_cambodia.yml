@@ -10,7 +10,7 @@ kh:
       metadata:
         gateways:
           default:
-            host: "103.193.204.7"
+            host: "103.193.204.17"
             prefix: false
     metfone:
       metadata:
@@ -19,6 +19,6 @@ kh:
             host: "175.100.32.29"
             prefix: false
           mhealth:
-            host: "103.193.204.7"
+            host: "103.193.204.17"
             prefix: false
             caller_id: "095975802"

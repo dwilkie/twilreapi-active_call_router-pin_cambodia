@@ -21,7 +21,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     },
     :cellcard => {
       :sample_number => "+85512345677",
-      :asserted_address => "012345677@103.193.204.7"
+      :asserted_address => "012345677@103.193.204.17"
     },
     :metfone => {
       :sample_number => "+855882345678",
@@ -33,7 +33,7 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
       },
       :asserted_address_exceptions => {
         :services => {
-          :mhealth => "0882345678@103.193.204.7"
+          :mhealth => "0882345678@103.193.204.17"
         }
       }
     }
@@ -220,4 +220,3 @@ describe Twilreapi::ActiveCallRouter::PinCambodia::CallRouter do
     end
   end
 end
-
