@@ -1,8 +1,10 @@
-require "twilreapi/active_call_router/base"
-require_relative "torasup"
+# frozen_string_literal: true
+
+require 'twilreapi/active_call_router/base'
+require_relative 'torasup'
 
 class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCallRouter::Base
-  DEFAULT_TRUNK_PREFIX = "0"
+  DEFAULT_TRUNK_PREFIX = '0'
   attr_accessor :gateway, :caller_id
 
   def normalize_from
@@ -24,7 +26,7 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   end
 
   def from_host
-    phone_call.variables["sip_from_host"]
+    phone_call.variables['sip_from_host']
   end
 
   def source
@@ -38,20 +40,20 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   def generate_routing_instructions
     set_routing_variables
     gateway_configuration = gateway || {}
-    gateway_name = gateway_configuration["name"]
-    gateway_host = gateway_configuration["host"]
-    gateway_caller_id = gateway_configuration["caller_id"]
+    gateway_name = gateway_configuration['name']
+    gateway_host = gateway_configuration['host']
+    gateway_caller_id = gateway_configuration['caller_id']
     address = normalized_destination
 
-    address = Phony.format(
-      address,
-      :format => :national,
-      :spaces => ""
-    ) if gateway_configuration["prefix"] == false || default_to_national_dial_string_format?
-
-    if gateway_configuration["trunk"] == false
-      address = address.sub(/^0/, "")
+    if gateway_configuration['prefix'] == false || default_to_national_dial_string_format?
+      address = Phony.format(
+        address,
+        format: :national,
+        spaces: ''
+      )
     end
+
+    address = address.sub(/^0/, '') if gateway_configuration['trunk'] == false
 
     if gateway_name
       dial_string_path = "gateway/#{gateway_name}/#{address}"
@@ -60,14 +62,14 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
     end
 
     routing_instructions = {
-      "source" => gateway_caller_id || caller_id || source,
-      "destination" => normalized_destination
+      'source' => gateway_caller_id || caller_id || source,
+      'destination' => normalized_destination
     }
 
     if dial_string_path
-      routing_instructions.merge!("dial_string_path" => dial_string_path)
+      routing_instructions['dial_string_path'] = dial_string_path
     else
-      routing_instructions.merge!("disable_originate" => "1")
+      routing_instructions['disable_originate'] = '1'
     end
 
     routing_instructions
@@ -85,11 +87,11 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   end
 
   def default_gateway
-    gateways["default"]
+    gateways['default']
   end
 
   def mhealth_gateway
-    gateways["mhealth"]
+    gateways['mhealth']
   end
 
   def gateways
@@ -113,34 +115,34 @@ class Twilreapi::ActiveCallRouter::PinCambodia::CallRouter < Twilreapi::ActiveCa
   end
 
   def mhealth_source_number
-    self.class.configuration("mhealth_source_number")
+    options[:mhealth_source_number] || self.class.configuration('mhealth_source_number')
   end
 
   def mhealth_caller_id
-    self.class.configuration("mhealth_caller_id")
+    options[:mhealth_caller_id] || self.class.configuration('mhealth_caller_id')
   end
 
   def ews_source_number
-    self.class.configuration("ews_source_number")
+    options[:ews_source_number] || self.class.configuration('ews_source_number')
   end
 
   def ews_caller_id
-    self.class.configuration("ews_caller_id")
+    options[:ews_caller_id] || self.class.configuration('ews_caller_id')
   end
 
   def default_dial_string_format
-    self.class.configuration("default_dial_string_format")
+    options[:default_dial_string_format] || self.class.configuration('default_dial_string_format')
   end
 
   def default_to_national_dial_string_format?
-    default_dial_string_format == "NATIONAL"
+    default_dial_string_format == 'NATIONAL'
   end
 
   def trunk_prefix
-    self.class.configuration("trunk_prefix") || DEFAULT_TRUNK_PREFIX
+    options[:trunk_prefix] || self.class.configuration('trunk_prefix') || DEFAULT_TRUNK_PREFIX
   end
 
   def trunk_prefix_replacement
-    self.class.configuration("trunk_prefix_replacement")
+    options[:trunk_prefix_replacement] || self.class.configuration('trunk_prefix_replacement')
   end
 end
