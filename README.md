@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/somleng/twilreapi-active_call_router-pin_cambodia.svg?branch=master)](https://travis-ci.org/somleng/twilreapi-active_call_router-pin_cambodia)
 
+## DEPRECATION NOTICE
+
+This has been merged into [Twilreapi](https://github.com/somleng/twilreapi) and is no longer maintained
+
 This gem contains call routing logic for People In Need Cambodia for [Twilreapi.](https://github.com/somleng/twilreapi)
 
 ## Installation
@@ -22,20 +26,20 @@ To configure [Twilreapi](https://github.com/somleng/twilreapi) to use `Twilreapi
 
 The following environment variables can be set to determine the call routing logic:
 
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_DEFAULT_DIAL_STRING_FORMAT`
-  * Defaults to international format. Set to `NATIONAL` to default to national dial string format
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_SOURCE_NUMBER`
-  * The source number which determines the call is for mHealth
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_CALLER_ID`
-  * The caller id to display for mHealth calls
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_SOURCE_NUMBER`
-  * The source number which determines the call is for EWS
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_CALLER_ID`
-  * The caller id to display for EWS calls
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX_REPLACEMENT`
-  * The replacement of the trunk prefix. Unset to nil to disable trunk prefix replacement
-* `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX`
-  * The trunk prefix to replace. Defaults to '0'
+-   `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_DEFAULT_DIAL_STRING_FORMAT`
+    -   Defaults to international format. Set to `NATIONAL` to default to national dial string format
+-   `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_SOURCE_NUMBER`
+    -   The source number which determines the call is for mHealth
+-   `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_MHEALTH_CALLER_ID`
+    -   The caller id to display for mHealth calls
+-   `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_SOURCE_NUMBER`
+    -   The source number which determines the call is for EWS
+-   `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_EWS_CALLER_ID`
+    -   The caller id to display for EWS calls
+-   `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX_REPLACEMENT`
+    -   The replacement of the trunk prefix. Unset to nil to disable trunk prefix replacement
+-   `TWILREAPI_ACTIVE_CALL_ROUTER_PIN_CAMBODIA_TRUNK_PREFIX`
+    -   The trunk prefix to replace. Defaults to '0'
 
 ## Development
 
@@ -45,9 +49,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/somleng/twilreapi-active_call_router-pin_cambodia.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/somleng/twilreapi-active_call_router-pin_cambodia>.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
